@@ -12,31 +12,26 @@
     <!-- Display the countdown timer in an element -->
     <p id="demo"></p>
     <input type="number" id="period" value="1">
-    <audio id="player" controls src="./bowl.mp3">
-    </audio>
-    <button onclick="start()">Start</button>
+    <div style="display: none">
+        <audio id="player" controls src="bowl.mp3">
+        </audio>
+    </div>
+    <button onclick="kick()">Start</button>
     <script>
         var music = document.getElementById("player");
-        var x
-        function start() {
+        const myWorker = new Worker('./worker.js');
+        function kick(){
             var input = document.getElementById("period");
             const period = input.value * 60 //seconds
-            var distance = period;
-            if(typeof(x) !== undefined) stop()
-            x = setInterval(function () {
-                // Display the result in the element with id="demo"
-                distance -=1;
-                document.getElementById("demo").innerHTML = distance
-                // If the count down is finished, write some text
-                if (distance <= 0) {
-                    music.play();
-                    distance = period
-                }
-            }, 1000);
+            music.play();
+            myWorker.postMessage([period]);
         }
-        function stop() {
-            clearInterval(x);
+        myWorker.onmessage = (e) => {
+            // result.textContent = e.data;
+            console.log('Message received from worker');
+            music.play();
         }
+        var x
     </script>
 </body>
 
