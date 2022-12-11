@@ -12,19 +12,19 @@
     <!-- Display the countdown timer in an element -->
     <p id="demo"></p>
     <input type="number" id="period" value="1">
-    <div style="display: none">
         <audio id="player" controls src="bowl.mp3">
         </audio>
-    </div>
-    <button onclick="kick()">Start</button>
+    <button id='start_btn' onclick="kick()">Start</button>
     <script>
         var music = document.getElementById("player");
+        var button = document.getElementById("start_btn");
+        var input = document.getElementById("period");
         const myWorker = new Worker('./worker.js');
         function kick(){
-            var input = document.getElementById("period");
             const period = input.value * 60 //seconds
             music.play();
             myWorker.postMessage([period]);
+            button.disabled = true;
         }
         myWorker.onmessage = (e) => {
             // result.textContent = e.data;
