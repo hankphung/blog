@@ -1,16 +1,15 @@
 
 const cacheName = 'sound-pwa-v1';
 const filesToCache = [
-  '/',
-  '/index.html',
-  '/sound.mp3',
-  '1_root.mp3',
-  '2_sacral.mp3',
-  '3_solar_plexus.mp3',
-  '4_heart.mp3',
-  '6_eye.mp3',
-  '5_throat.mp3',
-  '7_crown.mp3',
+  '/blog/bowl',
+  '/blog/bowl/index.html',
+  '/blog/bowl/1_root.mp3',
+  '/blog/bowl/2_sacral.mp3',
+  '/blog/bowl/3_solar_plexus.mp3',
+  '/blog/bowl/4_heart.mp3',
+  '/blog/bowl/6_eye.mp3',
+  '/blog/bowl/5_throat.mp3',
+  '/blog/bowl/7_crown.mp3',
 ];
 
 self.addEventListener('install', event => {
