@@ -11,15 +11,51 @@
 <body>
     <!-- Display the countdown timer in an element -->
     <p id="demo"></p>
+    <select name="chakra" id="chakra" onchange="change_file()">
+        <option value="1" selected>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+    </select>
     <input type="number" id="period" value="1">
-        <audio id="player" controls src="bowl.mp3">
+        <audio id="player" controls >
+            <source id="audio_src" src="1_root.mp3" type="audio/mp3">
         </audio>
     <button id='start_btn' onclick="kick()">Start</button>
     <script>
+        files=[
+            '1_root.mp3',
+            '2_sacral.mp3',
+            '3_solar_plexus.mp3',
+            '4_heart.mp3',
+            '6_eye.mp3',
+            '5_throat.mp3',
+            '7_crown.mp3'
+        ];
         var music = document.getElementById("player");
         var button = document.getElementById("start_btn");
         var input = document.getElementById("period");
+        var source = document.getElementById('audio_src');
+        // Register a service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                console.log('Service worker registered: ', registration);
+                }).catch(error => {
+                console.log('Service worker registration failed: ', error);
+                });
+            });
+        }
+
         const myWorker = new Worker('./worker.js');
+        function change_file(){
+            opt = chakra.value - 1
+            source.src= files[opt]
+            music.load();
+        }
         function kick(){
             const period = input.value * 60 //seconds
             music.play();
