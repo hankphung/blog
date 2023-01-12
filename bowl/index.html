@@ -73,6 +73,7 @@
         .column {
             float: left;
             width: 50%;
+            font-size: 18px;
         }
 
         /* styles for the radio buttons */
@@ -127,6 +128,38 @@
             display: inline-block;
             margin-right: 5px;
         }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 2px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 31px;
+            height: 31px;
+            /* border-radius: 50%; */
+            background-image: url('slider.png');
+            background-position: center;
+            background-size: 100% 100%;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            /* border-radius: 50%; */
+            background: url('slider.png') center;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -155,14 +188,16 @@
                 <!-- <img id='bowl' src="bowl.png" alt=""> -->
                 <img src="icon.png" width="38px" alt="">
             </button>
-            <input type="number" id="period" value="1">
+            <div class="slidecontainer">
+                <input type="range" min="0.5" max="100" value="0.5" class="slider" id="period">
+            </div>
             </br />
             <audio id="player" controls>
                 <source id="audio_src" src="1_root.mp3" type="audio/mp3">
             </audio>
             <form action="#" id="inputs">
-                <!-- <div class="column">Column 1</div>
-            <div class="column">Column 2</div> -->
+                <div class="column">Smile! you are alive!</div>
+                <div class="column">You are here and now </div>
                 <br style="clear: both;">
                 <!-- <button id="play" onclick="playAudio()">Play</button> -->
                 <br><br>
