@@ -7,8 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto bowl</title>
     <style type="text/css">
-        body {
+        @media (max-width: 767px) {
+            .hidden-mobile {
+                display: none;
+            }
+
+            label span {
+                display: none;
+            }
+
+            form label {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+        }
+
+        .wrapper {
             background-color: #281b24;
+            max-width: 1000px;
+            margin: 0 auto
         }
 
         .header {
@@ -17,7 +34,8 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
-            min-height: 600px;
+            min-height: 450px;
+            background-position: top;
         }
 
         #start_btn {
@@ -25,6 +43,18 @@
             border: none;
             opacity: 65%;
             width: 38%;
+            margin: 0 auto;
+            display: block;
+        }
+
+        #inputs {
+            text-align: center;
+        }
+
+        #controls {
+            color: rgba(255, 255, 255, 0.7);
+            font-family: fantasy;
+            padding: 30px;
         }
 
         #bowl {
@@ -54,6 +84,9 @@
             border-radius: 50%;
             border: 2px solid black;
             margin-right: 10px;
+            display: block;
+            margin: 0 auto;
+
         }
 
         /* styles for selected radio button */
@@ -62,48 +95,52 @@
         }
 
         /* colors for the 7 chakras */
-        input[value="1"] {
+        input.chakra-radios[value="1"] {
             background-color: #ff0000;
         }
 
-        input[value="2"] {
+        input.chakra-radios[value="2"] {
             background-color: #ff7f00;
         }
 
-        input[value="3"] {
+        input.chakra-radios[value="3"] {
             background-color: #ffff00;
         }
 
-        input[value="4"] {
+        input.chakra-radios[value="4"] {
             background-color: #00ff00;
         }
 
-        input[value="5"] {
+        input.chakra-radios[value="5"] {
             background-color: #0000ff;
         }
 
-        input[value="6"] {
+        input.chakra-radios[value="6"] {
             background-color: #4b0082;
         }
 
-        input[value="7"] {
+        input.chakra-radios[value="7"] {
             background-color: #8b00ff;
+        }
+
+        label {
+            display: inline-block;
+            margin-right: 5px;
         }
     </style>
 </head>
 
 <body>
-    <div class="header">
-        <br>
-        <button id='start_btn' onclick="kick()">
-            <!-- <img id='bowl' src="bowl.png" alt=""> -->
-            <img src="icon.png" width="38px" alt="">
-        </button>
-        <br>
-    </div>
-    <!-- Display the countdown timer in an element -->
-    <p id="demo"></p>
-    <!-- <select name="chakra" id="chakra" onchange="change_file()">
+    <div class="wrapper">
+
+        <div class="header">
+            <br>
+
+            <br>
+        </div>
+        <!-- Display the countdown timer in an element -->
+        <!-- <p id="demo"></p> -->
+        <!-- <select name="chakra" id="chakra" onchange="change_file()">
         <option value="1" selected>1</option>
         <option value=2>2</option>
         <option value=3>3</option>
@@ -112,85 +149,117 @@
         <option value="6">6</option>
         <option value="7">7</option>
     </select> -->
-    <audio id="player" controls>
-        <source id="audio_src" src="1_root.mp3" type="audio/mp3">
-    </audio>
 
-    <div id="controls">
-        <form action="#" id="control">
-            <div class="column">Column 1</div>
-            <div class="column">Column 2</div>
-            <br style="clear: both;">
-            <!-- <button id="play" onclick="playAudio()">Play</button> -->
-            <br><br>
-            <input class="chakras" type="radio" name="sound" value="1">Charkra 1
-            <input class="chakras" type="radio" name="sound" value="2">Charkra 2
-            <input class="chakras" type="radio" name="sound" value="3">Charkra 3
-            <input class="chakras" type="radio" name="sound" value="4">Charkra 4
-            <input class="chakras" type="radio" name="sound" value="5">Charkra 5
-            <input class="chakras" type="radio" name="sound" value="6">Charkra 6
-            <input class="chakras" type="radio" name="sound" value="7">Charkra 7
-            <br><br>
+        <div id="controls">
+            <button id='start_btn' onclick="kick()">
+                <!-- <img id='bowl' src="bowl.png" alt=""> -->
+                <img src="icon.png" width="38px" alt="">
+            </button>
             <input type="number" id="period" value="1">
-        </form>
-    </div>
-    <script>
-        files = [
-            '1_root.mp3',
-            '2_sacral.mp3',
-            '3_solar_plexus.mp3',
-            '4_heart.mp3',
-            '6_eye.mp3',
-            '5_throat.mp3',
-            '7_crown.mp3'
-        ];
-        var music = document.getElementById("player");
-        var button = document.getElementById("start_btn");
-        var input = document.getElementById("period");
-        var source = document.getElementById('audio_src');
-        var radios = document.getElementsByName('sound');
-        // Register a service worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js').then(registration => {
-                    console.log('Service worker registered: ', registration);
-                }).catch(error => {
-                    console.log('Service worker registration failed: ', error);
+            </br />
+            <audio id="player" controls>
+                <source id="audio_src" src="1_root.mp3" type="audio/mp3">
+            </audio>
+            <form action="#" id="inputs">
+                <!-- <div class="column">Column 1</div>
+            <div class="column">Column 2</div> -->
+                <br style="clear: both;">
+                <!-- <button id="play" onclick="playAudio()">Play</button> -->
+                <br><br>
+                <label>
+                    <input type="radio" class="chakra-radios" name="sound" value="1">
+                    <span>
+                        Root Chakra
+                    </span>
+                </label>
+                <label>
+                    <input type="radio" class="chakra-radios" name="sound" value="2">
+                    <span>
+                        Sacral Chakra
+                </label>
+                <label>
+                    <input type="radio" class="chakra-radios" name="sound" value="3">
+                    <span>
+                        Solar Plexus Chakra</span>
+                </label>
+                <label>
+                    <input type="radio" class="chakra-radios" name="sound" value="4">
+                    <span>
+                        Heart Chakra
+                </label>
+                <label>
+                    <input type="radio" class="chakra-radios" name="sound" value="5">
+                    <span>Throat Chakra
+                </label>
+                <label>
+                    <input type="radio" class="chakra-radios" name="sound" value="6">
+                    <span> Third Eye Chakra
+                </label>
+                <label>
+                    <input type="radio" class="chakra-radios" name="sound" value="7">
+                    <span> Crown Chakra
+                </label>
+                <br><br>
+            </form>
+        </div>
+        <script>
+            files = [
+                '1_root.mp3',
+                '2_sacral.mp3',
+                '3_solar_plexus.mp3',
+                '4_heart.mp3',
+                '6_eye.mp3',
+                '5_throat.mp3',
+                '7_crown.mp3'
+            ];
+            var music = document.getElementById("player");
+            var button = document.getElementById("start_btn");
+            var input = document.getElementById("period");
+            var source = document.getElementById('audio_src');
+            var radios = document.getElementsByName('sound');
+            // Register a service worker
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('./sw.js').then(registration => {
+                        console.log('Service worker registered: ', registration);
+                    }).catch(error => {
+                        console.log('Service worker registration failed: ', error);
+                    });
                 });
-            });
-        }
-        function setSource(){
-            var selectedSound = document.querySelector('input[name="sound"]:checked');
-            if (selectedSound) {
-                opt = selectedSound.value - 1;
-                source.src = files[opt];
             }
-            // audio.volume = volume / 100;
-            music.load();
-        }
-        // function change_file() {
-        //     opt = chakra.value - 1
-        //     source.src = files[opt]
-        //     music.load();
-        // }
-        const myWorker = new Worker('./worker.js');
+            function setSource() {
+                var selectedSound = document.querySelector('input[name="sound"]:checked');
+                if (selectedSound) {
+                    opt = selectedSound.value - 1;
+                    source.src = files[opt];
+                }
+                // audio.volume = volume / 100;
+                music.load();
+            }
+            // function change_file() {
+            //     opt = chakra.value - 1
+            //     source.src = files[opt]
+            //     music.load();
+            // }
+            const myWorker = new Worker('./worker.js');
 
-        function kick() {
-            const period = input.value * 60 //seconds
-            music.play();
-            myWorker.postMessage([period]);
-            button.disabled = true;
-        }
-        myWorker.onmessage = (e) => {
-            // result.textContent = e.data;
-            console.log('Message received from worker');
-            music.play();
-        }
+            function kick() {
+                const period = input.value * 60 //seconds
+                music.play();
+                myWorker.postMessage([period]);
+                button.disabled = true;
+            }
+            myWorker.onmessage = (e) => {
+                // result.textContent = e.data;
+                console.log('Message received from worker');
+                music.play();
+            }
 
-        for (var i = 0, length = radios.length; i < length; i++) {
-            radios[i].addEventListener('change', setSource);
-        }
-    </script>
+            for (var i = 0, length = radios.length; i < length; i++) {
+                radios[i].addEventListener('change', setSource);
+            }
+        </script>
+    </div>
 </body>
 
 </html>
