@@ -187,6 +187,9 @@
             <button id='start_btn' onclick="kick()">
                 <!-- <img id='bowl' src="bowl.png" alt=""> -->
                 <img src="icon.png" width="38px" alt="">
+                <audio id="player" controls>
+                    <source id="audio_src" src="1_root.mp3" type="audio/mp3">
+                </audio>
             </button>
             <div class="slidecontainer container">
                 <input type="range" min="0.5" max="100" step="0.5" value="0.5" class="slider" id="period">
@@ -194,9 +197,6 @@
                 <!-- <input type="number" id="period" value="1"> -->
             </div>
             </br />
-            <audio id="player" controls>
-                <source id="audio_src" src="1_root.mp3" type="audio/mp3">
-            </audio>
             <form action="#" id="inputs">
                 <div class="column">Smile! you are alive!</div>
                 <div class="column">You are here and now </div>
