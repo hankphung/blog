@@ -15,10 +15,17 @@
             label span {
                 display: none;
             }
-
+            /*
             form label {
                 margin-left: 10px;
-                margin-right: 10px;
+                margin-right: 10px; 
+            }*/
+            .container>.column{
+                flex: 100%;
+                order:1
+            }
+            .center-column{
+                order: 0
             }
         }
 
@@ -36,6 +43,10 @@
             background-size: contain;
             min-height: 450px;
             background-position: top;
+            display: flex;
+            align-items: flex-end;
+            justify-items: center;
+            justify-content: center;
         }
 
         #start_btn {
@@ -60,20 +71,22 @@
         #bowl {
             width: 100%;
         }
-    </style>
-    <style>
+
         /* add styles for the button */
         #play {
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
         }
+        #player{
+            bottom: 0;
+        }
 
         /* styles for the two columns of text */
         .column {
-            float: left;
-            width: 50%;
             font-size: 18px;
+
+            flex: 45%;
         }
 
         /* styles for the radio buttons */
@@ -124,10 +137,10 @@
             background-color: #8b00ff;
         }
 
-        label {
+        /* label {
             display: inline-block;
             margin-right: 5px;
-        }
+        } */
 
         .slider {
             -webkit-appearance: none;
@@ -160,6 +173,19 @@
             background: url('slider.png') center;
             cursor: pointer;
         }
+        .container {
+            flex-direction: row ;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-content: center;
+            display: flex; /* or inline-flex */
+        }
+        .center-column,.column {
+            padding-top: 15px ;
+        }
+        .center-column {
+            flex:10%
+        }
     </style>
 </head>
 
@@ -168,29 +194,12 @@
 
         <div class="header">
             <br>
-
+            <audio id="player" controls>
+                <source id="audio_src" src="7_crown.mp3" type="audio/mp3">
+            </audio>
             <br>
         </div>
-        <!-- Display the countdown timer in an element -->
-        <!-- <p id="demo"></p> -->
-        <!-- <select name="chakra" id="chakra" onchange="change_file()">
-        <option value="1" selected>1</option>
-        <option value=2>2</option>
-        <option value=3>3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-    </select> -->
-
         <div id="controls">
-            <button id='start_btn' onclick="kick()">
-                <!-- <img id='bowl' src="bowl.png" alt=""> -->
-                <img src="icon.png" width="38px" alt="">
-                <audio id="player" controls>
-                    <source id="audio_src" src="1_root.mp3" type="audio/mp3">
-                </audio>
-            </button>
             <div class="slidecontainer container">
                 <input type="range" min="0.5" max="100" step="0.5" value="0.5" class="slider" id="period">
                 <p id="value">0.5 minute(s)</p>
@@ -198,44 +207,51 @@
             </div>
             </br />
             <form action="#" id="inputs">
-                <div class="column">Smile! you are alive!</div>
-                <div class="column">You are here and now </div>
+                <div class="container">
+                    <div class="column" id='quote1'>Smile! you are alive!</div>
+                    <div class="center-column"><button id='start_btn' onclick="kick()">
+                        <!-- <img id='bowl' src="bowl.png" alt=""> -->
+                        <img src="icon.png" width="38px" alt="">
+                    </button>
+                    </div>
+                    <div class="column" id='quote2'>You are here and now </div>
+                </div>
                 <br style="clear: both;">
-                <!-- <button id="play" onclick="playAudio()">Play</button> -->
-                <br><br>
-                <label>
-                    <input type="radio" class="chakra-radios" name="sound" value="1">
-                    <span>
-                        Root Chakra
-                    </span>
-                </label>
-                <label>
-                    <input type="radio" class="chakra-radios" name="sound" value="2">
-                    <span>
-                        Sacral Chakra
-                </label>
-                <label>
-                    <input type="radio" class="chakra-radios" name="sound" value="3">
-                    <span>
-                        Solar Plexus Chakra</span>
-                </label>
-                <label>
-                    <input type="radio" class="chakra-radios" name="sound" value="4">
-                    <span>
-                        Heart Chakra
-                </label>
-                <label>
-                    <input type="radio" class="chakra-radios" name="sound" value="5">
-                    <span>Throat Chakra
-                </label>
-                <label>
-                    <input type="radio" class="chakra-radios" name="sound" value="6">
-                    <span> Third Eye Chakra
-                </label>
-                <label>
-                    <input type="radio" class="chakra-radios" name="sound" value="7">
-                    <span> Crown Chakra
-                </label>
+                <div class="container">
+                    <label>
+                        <input type="radio" class="chakra-radios" name="sound" value="1">
+                        <span>
+                            Root Chakra
+                        </span>
+                    </label>
+                    <label>
+                        <input type="radio" class="chakra-radios" name="sound" value="2">
+                        <span>
+                            Sacral Chakra
+                    </label>
+                    <label>
+                        <input type="radio" class="chakra-radios" name="sound" value="3">
+                        <span>
+                            Solar Plexus Chakra</span>
+                    </label>
+                    <label>
+                        <input type="radio" class="chakra-radios" name="sound" value="4">
+                        <span>
+                            Heart Chakra
+                    </label>
+                    <label>
+                        <input type="radio" class="chakra-radios" name="sound" value="5">
+                        <span>Throat Chakra
+                    </label>
+                    <label>
+                        <input type="radio" class="chakra-radios" name="sound" value="6">
+                        <span> Third Eye Chakra
+                    </label>
+                    <label>
+                        <input type="radio" class="chakra-radios" name="sound" checked value="7">
+                        <span> Crown Chakra
+                    </label>
+                </div>
                 <br><br>
             </form>
         </div>
@@ -289,7 +305,7 @@
                 "If you want others to be happy, practice compassion. If you want to be happy, practice compassion. - Dalai Lama",
                 "Happiness is not something ready made. It comes from your own actions. - Dalai Lama",
                 "Be kind whenever possible. It is always possible. - Dalai Lama",
-                "The more you are motivated by love, the more fearless and free your action will be. - Dalai Lama"
+                "The more you are motivated by love, the more fearle ss and free your action will be. - Dalai Lama"
             ];
             var col1 = document.getElementById("quote1");
             var col2 = document.getElementById("quote2");
@@ -345,6 +361,7 @@
             for (var i = 0, length = radios.length; i < length; i++) {
                 radios[i].addEventListener('change', setSource);
             }
+
         </script>
     </div>
 </body>
