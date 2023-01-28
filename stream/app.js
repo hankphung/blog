@@ -1,6 +1,6 @@
 
 function openStream(cb) {
-    navigator.mediaDevices.getUserMedia({ audio: false, video: true })
+    navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: "environment" } })
         .then(stream => {
             cb(stream);
         })
