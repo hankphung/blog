@@ -17,9 +17,7 @@ function openStream(cb) {
   
   openStream(function (stream) {
     playVideo(stream, 'localStream')
-    var opts =  { initiator: true, trickle: false };
-    if(!HOST) opts= { initiator: false, trickle: false, stream };
-    
+    var opts =  { initiator: HOST, trickle: false, stream};
     const p = new SimplePeer(opts);
 
     p.on('signal', token => {
@@ -28,7 +26,7 @@ function openStream(cb) {
   
     $('#btnConnect').click(() => {
       const friendSignal = JSON.parse($('#txtFriendSignal').val());
-      console.log(friendSignal)
+    //   console.log(friendSignal)
       p.signal(friendSignal);
     });
     if(HOST){
