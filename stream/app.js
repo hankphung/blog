@@ -17,11 +17,11 @@ function openStream(cb) {
   
   openStream(function (stream) {
     playVideo(stream, 'localStream')
-    if(HOST)
-        const p = new SimplePeer({ initiator: true, trickle: false });
-    else {
-        const p = new SimplePeer({ initiator: false, trickle: false, stream });
-    }
+    var opts =  { initiator: true, trickle: false };
+    if(!HOST) opts= { initiator: false, trickle: false, stream };
+    
+    const p = new SimplePeer(opts);
+
     p.on('signal', token => {
       $('#txtMySignal').val(JSON.stringify(token))
     });
