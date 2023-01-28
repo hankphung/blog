@@ -17,8 +17,11 @@ function openStream(cb) {
   
   openStream(function (stream) {
     playVideo(stream, 'localStream')
-    const p = new SimplePeer({ initiator: !HOST, trickle: false, stream });
-  
+    if(HOST)
+        const p = new SimplePeer({ initiator: HOST, trickle: false });
+    else {
+        const p = new SimplePeer({ initiator: HOST, trickle: false, stream });
+    }
     p.on('signal', token => {
       $('#txtMySignal').val(JSON.stringify(token))
     });
@@ -28,8 +31,9 @@ function openStream(cb) {
       console.log(friendSignal)
       p.signal(friendSignal);
     });
-  
-    p.on('stream', friendStream => playVideo(friendStream, 'friendStream'));
+    if(HOST){
+        p.on('stream', friendStream => playVideo(friendStream, 'friendStream'));
+    }
   });
   
   
