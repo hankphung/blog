@@ -1,12 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.1/qrcode.js" integrity="sha512-hAz8pxm1kva4chZWPXQhGehvvlIj1Loka653sQXoYHNj4sgSukoR3ZKyHEOT7kFGVW17wUqD9CbKeviIJ2XFKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-peer/9.11.1/simplepeer.min.js" integrity="sha512-0f7Ahsuvr+/P2btTY4mZIw9Vl23lS6LY/Y7amdkmUg2dqsUF+cTe4QjWvj/NIBHJoGksOiqndKQuI9yzn2hB0g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>const HOST=true</script>
+        <script src="app.js"></script>
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
+            import { getDatabase } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-database.js"
+            import { getAuth, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js';
+
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+              apiKey: "AIzaSyDB6cjrCnK06DBr1Gdi62gCW2FnR68EjRI",
+              authDomain: "zenup-stream.firebaseapp.com",
+              projectId: "zenup-stream",
+              storageBucket: "zenup-stream.appspot.com",
+              messagingSenderId: "190905630626",
+              appId: "1:190905630626:web:ffcbcc70de652c61a63cfb",
+              databaseURL:  'https://zenup-stream-default-rtdb.europe-west1.firebasedatabase.app',
+            };
+            // Initialize Realtime Database and get a reference to the service
+
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const database = getDatabase(app);
+
+
+            // Auth
+            const provider = new GoogleAuthProvider();
+            const auth = getAuth();
+            signInWithPopup(auth, provider)
+            .then((result) => {
+                init()
+                // ...
+            }).catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                const email = error.customData.email;
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+                // ...
+            });
+        </script>
         <title>P2P webcam sharing</title>
     </head>
     <body>
-        <video id="localStream" width="1080" controls></video>
+        <style>body{background: black; color: white}</style>
+        <video id="localStream" width="100%" autoplay></video>
         <br /><br />
         <video id="friendStream" width="300" controls></video>
         <br /><br />
@@ -17,7 +64,9 @@
         <input type="text" placeholder="Your friend's signal" id="txtFriendSignal">
         <br /><br />
         <button id="btnConnect">Connect</button>
+        <img src="qr.svg" id="qr" width="200px" alt=""/>
+        <div class="controls">
+            <button onClick="openFullscreen()">full</button>
+        </div>
     </body>
-    <script>const HOST=true</script>
-    <script src="./app.js"></script>
 </html>

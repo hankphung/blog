@@ -4,6 +4,26 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-peer/9.11.1/simplepeer.min.js" integrity="sha512-0f7Ahsuvr+/P2btTY4mZIw9Vl23lS6LY/Y7amdkmUg2dqsUF+cTe4QjWvj/NIBHJoGksOiqndKQuI9yzn2hB0g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <title>C</title>
+        <script>
+            const socket = require('socket.io-client')('http://localhost:3000');
+
+            socket.on('connect', () => {
+            console.log('Connected to server');
+
+            room = prompt('Enter a room name:');
+            socket.emit('join', room);
+            });
+
+            socket.on('offer', offer => {
+            console.log('Received offer from server');
+            // Use the offer to create an answer and send it back to the server
+            });
+
+            socket.on('answer', answer => {
+            console.log('Received answer from server');
+            // Use the answer to establish a WebRTC connection
+            });
+        </script>
     </head>
     <body>
         <video id="localStream" width="300" controls></video>
@@ -17,8 +37,8 @@
         <input type="text" placeholder="Your friend's signal" id="txtFriendSignal">
         <br /><br />
         <button id="btnConnect">Connect</button>
+        <button onclick="videoFullScreen()">full</button>
     </body>
-    <script>const HOST=false</script>
-
+    <script>const HOST=false</script> 
     <script src="./app.js"></script>
 </html>

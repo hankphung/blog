@@ -186,12 +186,28 @@
         .center-column {
             flex:10%
         }
+        .hidden{
+            display: none;
+        }
+        #bigbowl{
+            width: 30%;
+            height: 350px;
+            position: absolute;
+            left: 35%;
+            background: transparent;
+            border: none;
+        }
     </style>
 </head>
 
 <body>
     <div class="wrapper">
-
+        <div class="hidden">
+            <audio id="player2" controls>
+                <source id="audio_src" src="bowl.mp3" type="audio/mp3">
+            </audio>
+        </div>
+        <button id="bigbowl" onclick="hit_bowl()"></button>
         <div class="header">
             <br>
             <audio id="player" controls>
@@ -281,12 +297,31 @@
                 "The greatest achievement of humanity is not its works of art, science, or technology, but the recognition of its own dysfunction. - Eckhart Tolle",
                 "The present moment is the only point of power. The past has no power to stop you from being present now. The future has no power to stop you from being present now. - Eckhart Tolle",
                 "Awareness is the greatest agent for change. - Eckhart Tolle",
+                "WHAT A LIBERATION TO REALIZE THAT THE “VOICE IN MY HEAD” IS NOT WHO I AM. WHO AM I THEN? THE ONE WHO SEES THAT. - Eckhart Tolle",
+                "WHAT YOU REACT TO IN OTHERS, YOU STRENGTHEN IN YOURSELF. - Eckhart Tolle",
+                "THE PRIMARY CAUSE OF UNHAPPINESS IS NEVER THE SITUATION BUT YOUR THOUGHTS ABOUT IT. - Eckhart Tolle",
+                "PRESENCE IS WHEN YOU'RE NO LONGER WAITING FOR THE NEXT MOMENT, BELIEVING THAT THE NEXT MOMENT WILL BE MORE FULFILLING THAN THIS ONE. - Eckhart Tolle",
+                "DON'T THINK OF YOURSELF AS HAVING A PAST, DON'T THINK OF YOURSELF AS HAVING A FUTURE. WHAT'S LEFT? - Eckhart Tolle",
+                "BE AWARE OF YOUR BREATHING. NOTICE HOW THIS TAKES ATTENTION AWAY FROM YOUR THINKING AND CREATES SPACE. - Eckhart Tolle",
+                "HERE IS A NEW SPIRITUAL PRACTICE FOR YOU: DON'T TAKE YOUR THOUGHTS TOO SERIOUSLY. - Eckhart Tolle",
+                "GUILT, REGRET, RESENTMENT, SADNESS, AND ALL FORMS OF NON-FORGIVENESS ARE CAUSED BY TOO MUCH PAST AND NOT ENOUGH PRESENCE. - Eckhart Tolle",
+                "IF YOU DON'T HAVE A GOOD RELATIONSHIP WITH THE NOW, YOU DON'T HAVE A GOOD RELATIONSHIP WITH LIFE. - Eckhart Tolle",
+                "IT IS NOT UNCOMMON FOR PEOPLE TO SPEND THEIR WHOLE LIFE WAITING TO START LIVING. - Eckhart Tolle",
+                "MOST HUMANS ARE NEVER FULLY PRESENT IN THE NOW, BECAUSE UNCONSCIOUSLY THEY BELIEVE THAT THE NEXT MOMENT MUST BE MORE IMPORTANT THAN THIS ONE. BUT THEN YOU MISS YOUR WHOLE LIFE, WHICH IS NEVER NOT NOW. - Eckhart Tolle",
+                "DON'T WAIT TO BE SUCCESSFUL AT SOME FUTURE POINT. HAVE A SUCCESSFUL RELATIONSHIP WITH THE PRESENT MOMENT AND BE FULLY PRESENT IN WHATEVER YOU ARE DOING. THAT IS SUCCESS. - Eckhart Tolle",
+                "ACKNOWLEDGING THE GOOD THAT YOU ALREADY HAVE IN YOUR LIFE IS THE FOUNDATION FOR ALL ABUNDANCE. - Eckhart Tolle",
+                "LIFE WILL GIVE YOU WHATEVER EXPERIENCE IS MOST HELPFUL FOR THE EVOLUTION OF YOUR CONSCIOUSNESS. HOW DO YOU KNOW THIS IS THE EXPERIENCE YOU NEED? BECAUSE THIS IS THE EXPERIENCE YOU ARE HAVING AT THE MOMENT. - Eckhart Tolle",
+                "YOU ARE THE UNIVERSE, EXPRESSING ITSELF AS A HUMAN FOR A LITTLE WHILE. - Eckhart Tolle",
+                "YOU ARE THE SKY. THE CLOUDS ARE WHAT HAPPENS, WHAT COMES AND GOES. - Eckhart Tolle",
+                "Why does the mind habitually deny or resist the now? because it cannot function and remain in control without time, which is past and future, so it perceives the timeless now as threatening. time and mind are in fact inseparable. - Eckhart Tolle",
+                "WORDS REDUCE REALITY TO SOMETHING THE HUMAN MIND CAN GRASP, WHICH ISN’T VERY MUCH. - Eckhart Tolle",
                 "Nature does not hurry, yet everything is accomplished. - Lao Tzu",
                 "Smile! you are alive!",
                 "The journey of a thousand miles begins with one step. - Lao Tzu",
                 "He who knows others is wise; he who knows himself is enlightened. - Lao Tzu",
                 "The world is a sacred vessel that cannot be acted upon, it can only be held. He who holds it, holds it in trust; he who acts upon it, spoils it. - Lao Tzu",
                 "The most precious gift we can offer anyone is our attention. - Thich Nhat Hanh",
+                "Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor. - Thich Nhat Hanh",
                 "The greatest gift is the gift of understanding. - Thich Nhat Hanh",
                 "The present moment is filled with joy and happiness. If you are attentive, you will see it. - Thich Nhat Hanh",
                 "The miracle is not to fly in the air, or to walk on the water, but to walk on the earth. - Thich Nhat Hanh",
@@ -305,11 +340,12 @@
                 "If you want others to be happy, practice compassion. If you want to be happy, practice compassion. - Dalai Lama",
                 "Happiness is not something ready made. It comes from your own actions. - Dalai Lama",
                 "Be kind whenever possible. It is always possible. - Dalai Lama",
-                "The more you are motivated by love, the more fearle ss and free your action will be. - Dalai Lama"
+                "The more you are motivated by love, the more fearless and free your action will be. - Dalai Lama"
             ];
             var col1 = document.getElementById("quote1");
             var col2 = document.getElementById("quote2");
             var music = document.getElementById("player");
+            var bowl = document.getElementById("player2");
             var button = document.getElementById("start_btn");
             var input = document.getElementById("period");
             var y = document.getElementById("value");
@@ -346,6 +382,9 @@
             // }
             const myWorker = new Worker('./worker.js');
 
+            function hit_bowl(){
+                bowl.play();
+            }
             function kick() {
                 const period = input.value * 60 //seconds
                 music.play();
