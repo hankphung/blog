@@ -1,0 +1,24 @@
+{
+  "name": "socket-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/hankphung/chang-project.git"
+  },
+  "author": "Hank Phung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://bitbucket.org/hankphung/chang-project/issues"
+  },
+  "homepage": "https://bitbucket.org/hankphung/chang-project#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.5.4"
+  }
+}
