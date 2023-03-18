@@ -210,6 +210,19 @@
         body {
             background-image: url('bg2.webp');
         }
+        .audio-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.audio-wrapper label {
+  flex-basis: 100px;
+  margin-right: 20px;
+}
+
+.audio-wrapper audio {
+  background: transparent;
+}
     </style>
 </head>
 
@@ -246,7 +259,29 @@
                         <img src="icon.png" width="38px" alt="">
                     </button>
                     </div>
-                    <div class="column" id='quote2'>You are here and now </div>
+                    <div class="column" id="quote2">
+                        <h4>Background Sounds</h4>
+                        <div class="audio-wrapper">
+                          <label for="river-audio">River</label>
+                          <audio id="river-audio" controls loop>
+                            <source src="audio/river.mp3" type="audio/mp3" data-track-number="1">
+                          </audio>
+                        </div>
+                        <div class="audio-wrapper">
+                          <label for="ocean-audio">Ocean</label>
+                          <audio id="ocean-audio" controls loop>
+                            <source src="audio/ocean.mp3" type="audio/mp3" data-track-number="2">
+                          </audio>
+                        </div>
+                        <div class="audio-wrapper">
+                          <label for="bird-audio">Bird</label>
+                          <audio id="bird-audio" controls loop>
+                            <source src="audio/bird.mp3" type="audio/mp3" data-track-number="3">
+                          </audio>
+                        </div>
+                      </div>
+                      
+                </div>
                 </div>
                 <br style="clear: both;">
                 <div class="container">
@@ -359,7 +394,7 @@
                 "The more you are motivated by love, the more fearless and free your action will be. - Dalai Lama"
             ];
             var col1 = document.getElementById("quote1");
-            var col2 = document.getElementById("quote2");
+            // var col2 = document.getElementById("quote2");
             var music = document.getElementById("player");
             var bowl = document.getElementById("player2");
             var button = document.getElementById("start_btn");
@@ -368,7 +403,7 @@
             var source = document.getElementById('audio_src');
             var radios = document.getElementsByName('sound');
             col1.innerHTML = quotes[Math.floor(Math.random()*quotes.length)]
-            col2.innerHTML = quotes[Math.floor(Math.random()*quotes.length)]
+            // col2.innerHTML = quotes[Math.floor(Math.random()*quotes.length)]
             input.oninput = function() {
                 y.innerHTML = this.value + ' minute(s)';
             }
