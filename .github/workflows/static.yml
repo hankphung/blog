@@ -37,12 +37,12 @@ jobs:
         with:
           # Upload entire repository
           path: '.'
-      # - name: Deploy to GitHub Pages
-      #   id: deployment
-      #   uses: actions/deploy-pages@v1
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: JamesIves/github-pages-deploy-action@v4.4.2
-        with:
-          folder: .
+        uses: actions/deploy-pages@v2
+      # - name: Deploy to GitHub Pages
+      #   id: deployment
+      #   uses: JamesIves/github-pages-deploy-action@v4.4.2
+      #   with:
+      #     folder: .
 
