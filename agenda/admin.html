@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda CRUD</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <h1>Agenda CRUD</h1>
+  <form id="agendaForm">
+    <input type="text" id="timeInput" placeholder="Time">
+    <input type="text" id="titleInput" placeholder="Title">
+    <textarea id="descriptionInput" placeholder="Description"></textarea>
+    <button type="submit">Add Agenda Item</button>
+  </form>
+
+  <ul id="agendaList"></ul>
+  <script src="credential.js"></script>
+
+  <script src="admin.js"></script>
+</body>
+</html>

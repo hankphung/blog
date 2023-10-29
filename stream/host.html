@@ -1,72 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.1/qrcode.js" integrity="sha512-hAz8pxm1kva4chZWPXQhGehvvlIj1Loka653sQXoYHNj4sgSukoR3ZKyHEOT7kFGVW17wUqD9CbKeviIJ2XFKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-peer/9.11.1/simplepeer.min.js" integrity="sha512-0f7Ahsuvr+/P2btTY4mZIw9Vl23lS6LY/Y7amdkmUg2dqsUF+cTe4QjWvj/NIBHJoGksOiqndKQuI9yzn2hB0g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script>const HOST=true</script>
-        <script src="app.js"></script>
-        <script type="module">
-            // Import the functions you need from the SDKs you need
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
-            import { getDatabase } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-database.js"
-            import { getAuth, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js';
-
-            // TODO: Add SDKs for Firebase products that you want to use
-            // https://firebase.google.com/docs/web/setup#available-libraries
-            // Your web app's Firebase configuration
-            const firebaseConfig = {
-              apiKey: "AIzaSyDB6cjrCnK06DBr1Gdi62gCW2FnR68EjRI",
-              authDomain: "zenup-stream.firebaseapp.com",
-              projectId: "zenup-stream",
-              storageBucket: "zenup-stream.appspot.com",
-              messagingSenderId: "190905630626",
-              appId: "1:190905630626:web:ffcbcc70de652c61a63cfb",
-              databaseURL:  'https://zenup-stream-default-rtdb.europe-west1.firebasedatabase.app',
-            };
-            // Initialize Realtime Database and get a reference to the service
-
-            // Initialize Firebase
-            const app = initializeApp(firebaseConfig);
-            const database = getDatabase(app);
-
-
-            // Auth
-            const provider = new GoogleAuthProvider();
-            const auth = getAuth();
-            signInWithPopup(auth, provider)
-            .then((result) => {
-                init()
-                // ...
-            }).catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.customData.email;
-                // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError(error);
-                // ...
-            });
+        <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+        <script>const HOST=true
         </script>
         <title>P2P webcam sharing</title>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQW3K35H53"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-HQW3K35H53');
+        </script>
     </head>
     <body>
-        <style>body{background: black; color: white}</style>
-        <video id="localStream" width="100%" autoplay></video>
-        <br /><br />
-        <video id="friendStream" width="300" controls></video>
-        <br /><br />
-        <label>My Connection Token</label>
-        <br /><br />
-        <textarea rows="3" cols="100" id="txtMySignal"></textarea>
-        <br /><br />
-        <input type="text" placeholder="Your friend's signal" id="txtFriendSignal">
-        <br /><br />
-        <button id="btnConnect">Connect</button>
-        <img src="qr.svg" id="qr" width="200px" alt=""/>
-        <div class="controls">
-            <button onClick="openFullscreen()">full</button>
+      <div class="meet-container">
+        <div class="participants-panel">
+          <div class="participant selected" data-for="str1">
+            <canvas></canvas>
+            <div class="overlay">
+
+            </div>
+            <div class="participant-name">Camera 1</div>
+          </div>
+          <div class="participant pending" data-for='str2'>
+            <canvas></canvas>
+            <img src="qr.svg" id="qr" width="130px" alt=""/>
+            <div class="participant-name">N/A</div>
+            <div class="overlay">
+              <!-- <button class="mute"></button> -->
+            </div>
+            <button id="join_room">join</button>
+          </div>
         </div>
+        <div class="video-container" id="video-container">
+          <input type="radio" id="str1" name='visual-control' checked>
+          <video id="str1v" autoplay></video>
+          <input type="radio" id="str2" name='visual-control'>
+          <video id="str2v"  autoplay></video>
+        </div>
+        <canvas id="blank"></canvas>
+      </div>
+
+      <style>
+          body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+          }
+          .meet-container {
+            display: flex;
+            height: 100vh;
+            /* background-color: #f1f3f4; */
+          }
+          #qr{
+            display: block;
+            margin: 0 auto;
+          }
+          .participants-panel {
+            display: block;
+            position: fixed;
+            z-index: 1;
+            width: 20%;
+            /* background-color: #ffffff; */
+            padding: 20px;
+          }
+
+          .participant {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            margin-bottom: 10px;
+            border: 3px solid transparent;
+            cursor: pointer;
+          }
+
+          .participant.selected {
+            display: none;
+          }
+
+          .participant canvas {
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            /* width: 100%; */
+            height: 100%;
+          }
+
+          .participant .participant-name, .participant .button {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 5px 10px;
+            border-radius: 5px;
+          }
+
+          .video-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f1f3f4;
+          }
+          .video-container.sbs video {
+            display: inline;
+            max-width: 50%;
+          }
+          .video-container video {
+            max-height: 100%;
+            max-width: 100%;
+            min-height: 1080px;
+            display: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+          }
+          .hidden{
+            display: none;
+          }
+          .video-container input[type="radio"]:checked + video {
+            display: block;
+          }
+          .video-container  input[type="radio"] {
+            display: none;
+          }
+        </style>
+        <div class="controls">
+            <button onClick="pageFullScreen()">full</button>
+        </div>
+        <script src="app.js"></script>
+        <script src="host.js"></script>
     </body>
 </html>
